@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body{
+			background: gray;
+		}
+	</style>
+</head>
+<body>
+
+	<script>
+//		(function(){
+//			var arrSize = prompt("Enter size array");
+//			createArray(arrSize);
+//
+//			function createArray(size){
+//				var arrayWithNums = [];
+//				for(var i = 0; i<size; i++){
+//					arrayWithNums.push(Math.round(Math.random() * 10))
+//				}
+//				console.log(arrayWithNums);
+//				getOddFromArray(arrayWithNums)
+//			}
+//			function getOddFromArray(arr){
+//				var arrayWithOddNums = arr.filter(function(el){
+//					return (el % 2)
+//				});
+//				console.log(arrayWithOddNums)
+//			}
+//		}());
+//		var string = "Лишь очень немногие-живут сегодняшним днем. Большинство готовится жить позднее.";
+//		getLongestWord(string);
+//		function getLongestWord(string){
+//			var arrayOfWords = string.match(/[\wа-я-]+/gi);
+//			var longestWord = "";
+//			console.log(arrayOfWords);
+//			arrayOfWords.forEach(function(wrd){
+//				if(longestWord.length <= wrd.length ){
+//					longestWord = wrd
+//				}
+//
+//			});
+//			console.log(longestWord)
+//		}
+//
+//
+//
+//
+//	function arrGen(n){
+//		var arr = [];
+//		for(var i= 0; i<n; i++){
+//			arr.push(Math.round(Math.random() * 10))
+//		}
+//		return arr
+//	}
+//	function bubbleSort(arr){
+//		var f = 1;
+//		var n = arr.length;
+//
+//		while(f){
+//			f= 0;
+//			for(var i = 0; i < n; i++){
+//				if(arr[i] > arr[i+1]){
+//					var one = arr[i];
+//					arr[i] = arr[i+1];
+//					arr[i+1] = one;
+//					f = 1
+//				}
+//			}
+//			if(f){
+//				n - 1
+//			}
+//		}
+//		return arr
+//	}
+//	var arr = arrGen(10);
+//	var sortArr = bubbleSort(arr);
+//	console.log(sortArr)
+//		var eventDate = "Wed, 08 Nov 2017 20:10:00";
+//		var currentTime= Date.now();
+//		var eventTimestamp= Date.parse(eventDate);
+//		var durationInMinutes= 20;
+//
+//		function getTimeForStartPulling(eventTime, duration){
+//			var date =new Date(eventTime);
+//			var minutes = date.getMinutes();
+//			var min = 0;
+//			if(minutes < duration){
+//				min = 60 - (duration - minutes)
+//
+//			}else{
+//				min = minutes - duration
+//			}
+//		}
+	//getTimeForStartPulling(eventTimestamp, durationInMinutes)
+
+		function Node(data){
+			this.data = data;
+			this.next = null;
+		}
+		function SinglyList(){
+			this.head = null;
+			this.length = null;
+		}
+
+
+		SinglyList.prototype.add= function(value){
+			var node = new Node(value);
+			var currentNode = this.head;
+
+			if(!currentNode){
+				this.head = node;
+				this.length++;
+				return node
+			}
+
+			while (currentNode.next) {
+				currentNode = currentNode.next;
+			}
+
+			currentNode.next = node;
+
+			this.length++;
+
+			return node;
+		};
+
+		SinglyList.prototype.searchPosition = function(pos){
+			var listLength = this.length;
+			var keyPos = pos;
+			var list = this.head;
+			var count = 1;
+			if( listLength == 0 || keyPos > listLength || listLength == 1){
+				return console.log("error")
+			}
+			while(count < keyPos){
+				list =list.next;
+				count++;
+			}
+			return list
+		};
+
+		SinglyList.prototype.deleteNode = function(pos){
+			var lengthList = this.length;
+			var keyPos = pos;
+			var list =this.head;
+			var deletedNode = null;
+			var previousNode = keyPos - 1;
+			var lastNode = null;
+			var count = 1;
+
+			if(keyPos == 1){
+				var newList = this.head.next;
+				deletedNode = this.head;
+				this.head = newList;
+				return deletedNode
+			}
+			while(count < keyPos) {
+
+				if (count == previousNode) {
+					previousNode = list;
+				}
+				list = list.next;
+				if(count == keyPos)
+				count++
+			}
+
+			if(keyPos == lengthList){
+					previousNode.next = null;
+					this.length--;
+					return list
+				}
+
+
+		};
+		var singlyList= new SinglyList();
+		singlyList.add("abc");
+		singlyList.add("abcv");
+		singlyList.add("abcvb");
+		singlyList.add("abcvbn");
+		singlyList.add("abcvbnm");
+
+		console.log(singlyList);
+//		console.log(singlyList.searchPosition(5));
+//		console.log(singlyList.searchPosition(1));
+		console.log(singlyList.deleteNode(5));
+		console.log(singlyList);
+	</script>
+</body>
+</html>
