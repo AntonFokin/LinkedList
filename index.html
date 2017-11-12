@@ -131,7 +131,7 @@
 			return node;
 		};
 
-		SinglyList.prototype.searchPosition = function(pos){
+		SinglyList.prototype.searchNode = function(pos){
 			var listLength = this.length;
 			var keyPos = pos;
 			var list = this.head;
@@ -146,50 +146,43 @@
 			return list
 		};
 
-		SinglyList.prototype.deleteNode = function(pos){
-			var lengthList = this.length;
-			var keyPos = pos;
+		SinglyList.prototype.deleteNode = function(position){
+			var length = this.length;
 			var list =this.head;
-			var deletedNode = null;
-			var previousNode = keyPos - 1;
-			var lastNode = null;
 			var count = 1;
+			var beforeNodeToDelete = null;
+			var nodeToDelete = null;
+			var deletedNode = null;
 
-			if(keyPos == 1){
-				var newList = this.head.next;
-				deletedNode = this.head;
-				this.head = newList;
-				return deletedNode
+			if(position === 1){
+				this.head = list.next
+				list.next = null
+				this.length--;
+				return list
 			}
-			while(count < keyPos) {
+			while (count < position) {
+        		beforeNodeToDelete = list;
+        		nodeToDelete = list.next;
+        		list = list.next;
+        		count++;
+    		}
+    		beforeNodeToDelete.next = nodeToDelete.next;
+    		deletedNode = nodeToDelete;
+    		nodeToDelete = null;
+    		this.length--;
 
-				if (count == previousNode) {
-					previousNode = list;
-				}
-				list = list.next;
-				if(count == keyPos)
-				count++
-			}
-
-			if(keyPos == lengthList){
-					previousNode.next = null;
-					this.length--;
-					return list
-				}
-
+    		return deletedNode;
 
 		};
 		var singlyList= new SinglyList();
-		singlyList.add("abc");
-		singlyList.add("abcv");
-		singlyList.add("abcvb");
-		singlyList.add("abcvbn");
-		singlyList.add("abcvbnm");
+		singlyList.add("abc1");
+		singlyList.add("abc2");
+		singlyList.add("abc3");
+		singlyList.add("abc4");
+		singlyList.add("abc5");
 
 		console.log(singlyList);
-//		console.log(singlyList.searchPosition(5));
-//		console.log(singlyList.searchPosition(1));
-		console.log(singlyList.deleteNode(5));
+		console.log(singlyList.deleteNode(4));	
 		console.log(singlyList);
 	</script>
 </body>
