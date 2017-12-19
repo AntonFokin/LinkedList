@@ -133,14 +133,14 @@
 
 		SinglyList.prototype.searchNode = function(pos){
 			var listLength = this.length;
-			var keyPos = pos;
+			var targetPos = pos;
 			var list = this.head;
-			var count = 1;
-			if( listLength == 0 || keyPos > listLength || listLength == 1){
+			var count = 0;
+			if( listLength == 0 || targetPos >= listLength){
 				return console.log("error")
-			}
-			while(count < keyPos){
-				list =list.next;
+			}    
+			while(count < targetPos){
+				list = list.next;
 				count++;
 			}
 			return list
@@ -148,42 +148,81 @@
 
 		SinglyList.prototype.deleteNode = function(position){
 			var length = this.length;
-			var list =this.head;
+			var list = this.head;
 			var count = 1;
 			var beforeNodeToDelete = null;
 			var nodeToDelete = null;
 			var deletedNode = null;
 
 			if(position === 1){
-				this.head = list.next
-				list.next = null
+				this.head = list.next;
+				list.next = null;
 				this.length--;
 				return list
 			}
 			while (count < position) {
-        		beforeNodeToDelete = list;
-        		nodeToDelete = list.next;
-        		list = list.next;
-        		count++;
-    		}
-    		beforeNodeToDelete.next = nodeToDelete.next;
-    		deletedNode = nodeToDelete;
-    		nodeToDelete = null;
-    		this.length--;
+				beforeNodeToDelete = list;
+				nodeToDelete = list.next;
+				list = list.next;
+				count++;
+			}
+			beforeNodeToDelete.next = nodeToDelete.next;
+			deletedNode = nodeToDelete;
+			nodeToDelete = null;
+			this.length--;
 
-    		return deletedNode;
+			return deletedNode;
 
 		};
+		SinglyList.prototype.reverseList = function(){
+			var length      = this.length,
+				list        = this.head,
+				lastNode    = null,
+				reverseList = null,
+				reverse     = null,
+				count       = 0;
+			while(count < length){
+				if(list.next){
+					lastNode = list.next;
+					previousNode = list;
+					list = lastNode;
+					continue
+				}
+
+				if(!previousNode.next){
+					lastNode = previousNode;
+				}else{
+					previousNode.next = null;
+				}
+
+				list = this.head;
+
+				if(!reverseList){
+					reverseList = lastNode
+				}else{
+					reverse = reverseList;
+					while(reverse.next){
+						reverse = reverse.next
+					}
+					reverse.next = lastNode
+				}
+
+				count++
+			}
+			this.head = reverseList;
+			return this.head
+		};
+
 		var singlyList= new SinglyList();
 		singlyList.add("abc1");
 		singlyList.add("abc2");
 		singlyList.add("abc3");
 		singlyList.add("abc4");
 		singlyList.add("abc5");
+		console.log(singlyList.reverseList());
 
-		console.log(singlyList);
-		console.log(singlyList.deleteNode(4));	
-		console.log(singlyList);
+
+
 	</script>
 </body>
 </html>
